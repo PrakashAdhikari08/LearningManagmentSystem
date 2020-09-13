@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping("register")
-    public ResponseEntity<String> addNewCustomer(@RequestBody CustomerDto customerDto){
+    public ResponseEntity<String> addNewCustomer(@Valid  @RequestBody CustomerDto customerDto){
         customerService.registerCustomer(customerDto);
         return new ResponseEntity<>("Customer Added", HttpStatus.CREATED);
     }
@@ -49,6 +50,12 @@ public class CustomerController {
     @GetMapping("all-course-customer")
     public List<CourseDto> customerDtos(@RequestParam Long customerId){
         return customerService.getAllCourseCustomer(customerId);
+    }
+
+    @GetMapping("resend-validation/find-by-email")
+    public ResponseEntity<String> resendValidationEmail(@RequestParam String email){
+        customerService.resendValidationEmail(email);
+        return new ResponseEntity<>("Email Send", HttpStatus.OK);
     }
 
 }

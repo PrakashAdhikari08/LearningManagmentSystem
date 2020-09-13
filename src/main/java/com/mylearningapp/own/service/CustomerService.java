@@ -18,4 +18,6 @@ public interface CustomerService {
     void enrollCourse(Long customerId, Integer courseId);
 
     void deleteCustomer(Long customerId);
+
+    void resendValidationEmail(String email);
 }

@@ -5,6 +5,7 @@ import com.mylearningapp.own.domain.Customer;
 import com.mylearningapp.own.domain.Role;
 import com.mylearningapp.own.dtos.CourseDto;
 import com.mylearningapp.own.dtos.CustomerDto;
+import com.mylearningapp.own.exceptionhandling.NotExistException;
 import com.mylearningapp.own.mapper.CourseMapper;
 import com.mylearningapp.own.mapper.CustomerMapper;
 import com.mylearningapp.own.repository.CourseRepository;
@@ -17,8 +18,11 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.sql.SQLDataException;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -38,6 +42,10 @@ public class CustomerServiceImpl implements CustomerService {
     public Long registerCustomer(CustomerDto customerDto) {
         Customer customer = customerMapper.toEntity(customerDto);
         customer.setRole(Role.ROLE_CUSTOMER);
+        customer.setFlag(false);
+        customer.setResetToken(UUID.randomUUID().toString());
+        customer.setRegisterToken(UUID.randomUUID().toString());
+        //send email with the registered UUID to the Same Email Address
         customerRepository.save(customer);
         return customer.getId();
     }
@@ -75,5 +83,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteCustomer(Long customerId) {
         customerRepository.deleteById(customerId);
+    }
+
+    @Override
+    public void resendValidationEmail(String email) {
+       Optional<Customer> customer = customerRepository.findByEmail(email);
+
+       customer.orElseThrow(()->new NotExistException("No Email Id exists"));
+
+        System.out.println(customer);
     }
 }

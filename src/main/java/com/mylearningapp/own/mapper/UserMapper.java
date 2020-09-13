@@ -2,6 +2,7 @@ package com.mylearningapp.own.mapper;
 
 import com.mylearningapp.own.domain.User;
 import com.mylearningapp.own.dtos.UserDto;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -18,5 +19,7 @@ public interface UserMapper {
     User toEntity(UserDto userDto);
 
     List<User> toEntityList(List<UserDto> userDtos);
+
+
 
 }
