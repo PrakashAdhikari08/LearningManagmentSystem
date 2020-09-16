@@ -26,5 +26,10 @@ public class RestApiExceptionHandler {
         return new ResponseEntity<>("Cache Write Serialization Error", HttpStatus.EXPECTATION_FAILED);
     }
 
+    @ExceptionHandler(NotExistException.class)
+    public ResponseEntity<String> NotExistExceptionHandler(Exception e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
+    }
+
 
 }

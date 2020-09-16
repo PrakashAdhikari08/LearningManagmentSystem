@@ -41,5 +41,14 @@ public class User {
     @Column(name="role")
     private Role role;
 
+    @Column(name="reset_token")
+    private String resetToken;
+
+    @Column(name="register_token")
+    private String registerToken;
+
+    @Column(name="flag")
+    private Boolean flag;
+
 
 }
