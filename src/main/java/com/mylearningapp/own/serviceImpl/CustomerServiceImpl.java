@@ -86,8 +86,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void resendValidationEmail(String email) {
-       Optional<Customer> customer = customerRepository.findByEmail(email);
+    public void resendValidationEmail(String username) {
+       Optional<Customer> customer = customerRepository.findByUsername(username);
 
        customer.orElseThrow(()->new NotExistException("No Email Id exists"));
 
