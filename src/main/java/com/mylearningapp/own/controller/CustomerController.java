@@ -53,8 +53,8 @@ public class CustomerController {
     }
 
     @GetMapping("resend-validation/find-by-email")
-    public ResponseEntity<String> resendValidationEmail(@RequestParam String email){
-        customerService.resendValidationEmail(email);
+    public ResponseEntity<String> resendValidationEmail(@RequestParam String username){
+        customerService.resendValidationEmail(username);
         return new ResponseEntity<>("Email Send", HttpStatus.OK);
     }
 

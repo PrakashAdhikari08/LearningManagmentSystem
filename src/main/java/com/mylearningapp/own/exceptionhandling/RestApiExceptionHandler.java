@@ -11,6 +11,10 @@ import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class RestApiExceptionHandler {
+    @ExceptionHandler(NotExistException.class)
+    public ResponseEntity<String> NotExistExceptionHandler(Exception e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
+    }
 
     @ExceptionHandler(SQLDataException.class)
     public ResponseEntity<String> SqlExceptionHandler(Exception e){
@@ -26,10 +30,7 @@ public class RestApiExceptionHandler {
         return new ResponseEntity<>("Cache Write Serialization Error", HttpStatus.EXPECTATION_FAILED);
     }
 
-    @ExceptionHandler(NotExistException.class)
-    public ResponseEntity<String> NotExistExceptionHandler(Exception e){
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
-    }
+
 
 
 }

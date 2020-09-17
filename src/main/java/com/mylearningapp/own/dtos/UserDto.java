@@ -6,6 +6,7 @@ import com.mylearningapp.own.domain.Role;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
@@ -18,19 +19,26 @@ public class UserDto {
 
     private Long id;
 
-    private String firstName;
-
-    private String lastName;
+    private String name;
 
     @NotNull(message = "Please enter email")
-    private String email;
+    private String username;
 
     private String address;
 
     private String phone;
 
-    @Size(max = 50, min = 8, message = "Password Must be between 8 to 50 characters")
+    @Size(min = 8, message = "Password Must be between 8 to 50 characters")
+    @Setter(AccessLevel.NONE)
     private String password;
+
+
+    public void setPassword(String password){
+        this.password =
+                new BCryptPasswordEncoder().encode(password);
+
+
+    }
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;

@@ -17,14 +17,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name="last_name")
-    private String lastName;
 
-    @Column(name="email",unique = true, updatable = false)
-    private String email;
+    @Column(name="username",unique = true, updatable = false)
+    private String username;
 
     @Column(name="address")
     private String address;
@@ -39,6 +37,7 @@ public class User {
     private String password;
 
     @Column(name="role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Column(name="reset_token")
