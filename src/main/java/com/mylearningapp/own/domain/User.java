@@ -33,7 +33,7 @@ public class User {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @Column(name="password", nullable = false)
+    @Column(name="password")
     private String password;
 
     @Column(name="role")
