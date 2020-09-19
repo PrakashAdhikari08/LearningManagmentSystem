@@ -22,10 +22,12 @@ public class EmailSender {
 
     @Async
     public void sendPasswordResetMail(
-            String to,String text) {
+            String username,String token) {
+        String text = "To reset your password, Click the link below: \n"
+                +"http://localhost:3000/user/reset-password/" +token;
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("ftech977@gmail.com");
-        message.setTo(to);
+        message.setTo(username);
         message.setSubject("Password Reset Link");
         message.setText(text);
         emailSender.send(message);
@@ -37,6 +39,14 @@ public class EmailSender {
         message.setTo(to);
         message.setSubject("Your enquiry is received");
         message.setText("Hello "+name+"," +"\nThanks for contacting us.\nWe will get back to you soon."+"\n\nRegards,\nTeam HacerCode");
+        emailSender.send(message);
+    }
+    public void sendThanksForPasswordChange (String to, String name) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("ftech977@gmail.com");
+        message.setTo(to);
+        message.setSubject("Password Changed");
+        message.setText("Hello "+name+"," +"\nYour Password has been changed.\nYou can login with your new Password."+"\n\nRegards,\nTeam HacerCode");
         emailSender.send(message);
     }
     @Bean
