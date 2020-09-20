@@ -37,6 +37,11 @@ public class CourseController {
        return courseService.getAllCourse();
     }
 
+    @GetMapping("/page")
+    public List<CourseDto> getCourseByPage(@RequestParam Integer pageNumber,@RequestParam Integer coursePerPage){
+        return courseService.getCourseByPage(pageNumber, coursePerPage);
+    }
+
 
 
 }
