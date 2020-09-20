@@ -6,6 +6,9 @@ import com.mylearningapp.own.mapper.CourseMapper;
 import com.mylearningapp.own.repository.CourseRepository;
 import com.mylearningapp.own.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +42,15 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteCourse(Integer courseId) {
         courseRepository.deleteById(courseId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CourseDto> getCourseByPage(Integer pageNumber, Integer coursePerPage) {
+        Pageable pageable = PageRequest.of(pageNumber-1,coursePerPage);
+        List<Course> courses = courseRepository.findAllByOrderByIdDesc(pageable);
+        List<CourseDto> courseDtos = courseMapper.toDtoList((List<Course>) courses);
+        return courseDtos;
     }
 
 

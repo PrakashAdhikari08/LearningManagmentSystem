@@ -12,4 +12,5 @@ public interface CourseService  {
 
     void deleteCourse(Integer courseId);
 
+    List<CourseDto> getCourseByPage(Integer pageNumber, Integer coursePerPage);
 }
